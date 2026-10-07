@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderByToken } from "@/functions/orders";
 import { verifyPaymentFn } from "@/functions/payments";
 import { outForDeliveryStepLabel } from "@/lib/order-status";
-import heroSpread from "@/assets/hero-spread.jpg";
 
 export const Route = createFileRoute("/order/$token")({
   head: () => ({
@@ -244,11 +243,10 @@ function OrderTrackingPage() {
 function PageBackground({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-paper">
-      <img
-        src={heroSpread}
-        alt=""
+      <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(900px 500px at 50% -10%, rgba(225,6,0,.22), transparent 65%)" }}
       />
       <div className="pointer-events-none absolute inset-0 bg-paper/85" />
       <div className="relative">{children}</div>
