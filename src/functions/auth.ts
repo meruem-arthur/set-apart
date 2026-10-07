@@ -1,3 +1,4 @@
+import { sendTransactionalEmail } from "@/lib/email";
 import { createServerFn, createServerOnlyFn } from "@tanstack/react-start";
 import { getCookie, setCookie, deleteCookie } from "@tanstack/react-start/server";
 import * as bcrypt from "bcryptjs";
@@ -193,14 +194,30 @@ export const requestPasswordReset = createServerFn({ method: "POST" })
         expiresAt,
       });
 
-      const resetLink = `${process.env.APP_URL ?? "http://localhost:3000"}/admin/reset-password/${rawToken}`;
+      const baseUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+      const resetLink = `${baseUrl}/admin/reset-password/${rawToken}`;
 
-      // No transactional email provider is wired up yet — this project has
-      // no email-sending dependency configured. Until one is added (e.g.
-      // Resend, Postmark, SES), the reset link is logged server-side so a
-      // developer can hand it to the Admin manually. See the implementation
-      // report for what's needed to fully automate this.
-      console.log(`[password-reset] ${account.email} → ${resetLink} (expires in ${RESET_TOKEN_TTL_MINUTES}m)`);
+      // Email the link via Brevo (BREVO_API_KEY + EMAIL_FROM). If email isn't
+      // configured or fails, fall back to logging so the link is never lost.
+      let emailed = false;
+      try {
+        const result = await sendTransactionalEmail({
+          to: account.email,
+          subject: "Reset your SET APART password",
+          html: `<div style="font-family:Arial,sans-serif;background:#050505;color:#f2f2f2;padding:32px">
+            <h2 style="margin:0 0 12px">Reset your password</h2>
+            <p>Hi ${account.name}, use the button below to choose a new password. This link expires in ${RESET_TOKEN_TTL_MINUTES} minutes.</p>
+            <p style="margin:24px 0"><a href="${resetLink}" style="background:#e10600;color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Reset password</a></p>
+            <p style="font-size:12px;color:#999">If you didn't request this, you can ignore this email.</p>
+          </div>`,
+        });
+        emailed = !!result.sent;
+      } catch (err) {
+        console.error("[password-reset] email failed", err);
+      }
+      if (!emailed) {
+        console.log(`[password-reset] ${account.email} → ${resetLink} (expires in ${RESET_TOKEN_TTL_MINUTES}m)`);
+      }
     }
 
     return {
