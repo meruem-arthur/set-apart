@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, redirect, useNavigate, useRouter } from "@tanstack/react-router";
-import { LayoutGrid, ShieldCheck, Package, BadgePercent, Settings } from "lucide-react";
+import { LayoutGrid, ShieldCheck, Package, BadgePercent, Settings, Image as ImageIcon } from "lucide-react";
 import { getCurrentStaff, logoutStaff } from "@/functions/auth";
 import { DashboardShell, type DashboardNavItem } from "@/components/dashboard-shell";
 
@@ -20,6 +20,7 @@ const navItems: DashboardNavItem[] = [
   { to: "/super-admin/admins", label: "Admin Accounts", icon: ShieldCheck },
   { to: "/super-admin/menu", label: "Products", icon: Package },
   { to: "/super-admin/promotions", label: "Promotions", icon: BadgePercent },
+  { to: "/super-admin/site-images", label: "Site Images", icon: ImageIcon },
   { to: "/super-admin/settings", label: "Settings", icon: Settings },
 ];
 

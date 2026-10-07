@@ -1,115 +1,133 @@
+import * as React from "react";
 import { Link } from "@tanstack/react-router";
+import { Trash2 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart-context";
 
-function formatGHS(amount: number) {
-  return `GH₵${amount.toFixed(2)}`;
-}
+const money = (n: number) => `GH₵${n.toFixed(2)}`;
 
+/** Cart drawer. Wrap any trigger element: <CartSheet><button>Cart</button></CartSheet> */
 export function CartSheet({ children }: { children: React.ReactNode }) {
   const cart = useCart();
+  const [open, setOpen] = React.useState(false);
+  const [confirmClear, setConfirmClear] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!open) setConfirmClear(false);
+  }, [open]);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent
-        side="bottom"
-        className="max-h-[85vh] overflow-y-auto rounded-t-3xl bg-paper text-ink"
-      >
-        <SheetHeader>
-          <SheetTitle className="font-display text-xl">Your cart</SheetTitle>
+      <SheetContent side="right" className="flex w-full flex-col bg-[#f5f4ef] p-0 text-[#111] sm:max-w-md">
+        <SheetHeader className="border-b border-black/10 px-5 py-4">
+          <SheetTitle className="text-2xl font-black tracking-[-.05em]">
+            CART ({cart.itemCount})
+          </SheetTitle>
         </SheetHeader>
 
         {cart.lines.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-ink/50">
-            Nothing here yet — add something tasty from the menu.
-          </p>
-        ) : (
-          <div className="space-y-3 px-4 pb-4">
-            {cart.lines.map((line) => (
-              <div
-                key={`${line.menuItemId}-${line.variantId ?? "base"}`}
-                className="rounded-2xl bg-card p-3 ring-1 ring-black/5"
+          <div className="grid flex-1 place-items-center px-5 text-center">
+            <div>
+              <p className="text-3xl font-black tracking-[-.05em]">NOTHING HERE YET.</p>
+              <Link
+                to="/shop"
+                onClick={() => setOpen(false)}
+                className="mt-5 inline-block rounded-full bg-black px-5 py-3 text-[10px] font-bold tracking-[.15em] text-white"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">
-                      {line.name}
-                      {line.variantLabel && (
-                        <span className="text-ink/50"> — {line.variantLabel}</span>
-                      )}
-                    </p>
-                    <p className="mt-0.5 text-xs text-ink/50">{formatGHS(line.price)} each</p>
-                  </div>
-                  <p className="shrink-0 text-sm font-semibold">
-                    {formatGHS(line.price * line.quantity)}
-                  </p>
-                </div>
-
-                <div className="mt-2 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 rounded-full bg-paper px-1 py-1 ring-1 ring-black/5">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        cart.updateQuantity(line.menuItemId, line.quantity - 1, line.variantId)
-                      }
-                      className="grid size-7 place-items-center rounded-full text-sm font-medium text-ink/70 hover:bg-ink/5"
-                      aria-label={`Decrease ${line.name} quantity`}
-                    >
-                      −
-                    </button>
-                    <span className="w-5 text-center text-sm font-medium">{line.quantity}</span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        cart.updateQuantity(line.menuItemId, line.quantity + 1, line.variantId)
-                      }
-                      className="grid size-7 place-items-center rounded-full text-sm font-medium text-ink/70 hover:bg-ink/5"
-                      aria-label={`Increase ${line.name} quantity`}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => cart.removeItem(line.menuItemId, line.variantId)}
-                    className="text-xs font-medium text-clay hover:underline"
-                  >
-                    Remove
-                  </button>
-                </div>
-
-                <input
-                  type="text"
-                  value={line.specialInstructions ?? ""}
-                  onChange={(e) =>
-                    cart.setInstructions(line.menuItemId, e.target.value, line.variantId)
-                  }
-                  placeholder="Special instructions (e.g. no onions)"
-                  maxLength={200}
-                  className="mt-2 w-full rounded-xl bg-paper px-3 py-2 text-xs ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {cart.lines.length > 0 && (
-          <div className="sticky bottom-0 border-t border-black/5 bg-paper px-4 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-ink/60">Subtotal</span>
-              <span className="font-semibold">{formatGHS(cart.subtotal)}</span>
+                BROWSE THE SHOP
+              </Link>
             </div>
-            <p className="mt-1 text-xs text-ink/45">
-              Delivery fee (if applicable) is added at checkout.
-            </p>
-            <Link
-              to="/checkout"
-              className="btn-glass mt-3 flex w-full items-center justify-center rounded-full bg-clay px-5 py-3 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
-            >
-              Go to checkout
-            </Link>
           </div>
+        ) : (
+          <>
+            <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
+              {cart.lines.map((line) => (
+                <div key={`${line.productId}-${line.variantId}`} className="border border-black/10 bg-white p-3">
+                  <div className="flex justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-bold">{line.name}</p>
+                      <p className="mt-0.5 text-xs text-black/45">
+                        {[line.color, line.size].filter(Boolean).join(" / ")} · {money(line.price)} each
+                      </p>
+                    </div>
+                    <p className="shrink-0 text-sm font-bold">{money(line.price * line.quantity)}</p>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center border border-black/15">
+                      <button
+                        type="button"
+                        onClick={() => cart.updateQuantity(line.productId, line.variantId, line.quantity - 1)}
+                        className="grid size-8 place-items-center text-sm font-bold hover:bg-black/5"
+                        aria-label={`Decrease ${line.name} quantity`}
+                      >
+                        −
+                      </button>
+                      <span className="w-8 text-center text-sm font-bold">{line.quantity}</span>
+                      <button
+                        type="button"
+                        onClick={() => cart.updateQuantity(line.productId, line.variantId, line.quantity + 1)}
+                        className="grid size-8 place-items-center text-sm font-bold hover:bg-black/5"
+                        aria-label={`Increase ${line.name} quantity`}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => cart.removeItem(line.productId, line.variantId)}
+                      className="text-[10px] font-bold tracking-[.12em] text-black/50 hover:text-black"
+                    >
+                      REMOVE
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-black/10 bg-[#f5f4ef] px-5 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-black/55">Subtotal</span>
+                <span className="text-lg font-black">{money(cart.subtotal)}</span>
+              </div>
+              <p className="mt-1 text-xs text-black/40">Delivery fee is added at checkout.</p>
+              <Link
+                to="/checkout"
+                onClick={() => setOpen(false)}
+                className="mt-4 block w-full rounded-full bg-black py-4 text-center text-xs font-bold tracking-[.15em] text-white"
+              >
+                CHECKOUT
+              </Link>
+              {confirmClear ? (
+                <div className="mt-3 flex items-center justify-between gap-3 text-xs">
+                  <span className="font-bold">Remove everything?</span>
+                  <span className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        cart.clear();
+                        setConfirmClear(false);
+                      }}
+                      className="font-bold text-red-700 underline"
+                    >
+                      YES, CLEAR
+                    </button>
+                    <button type="button" onClick={() => setConfirmClear(false)} className="font-bold underline">
+                      CANCEL
+                    </button>
+                  </span>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setConfirmClear(true)}
+                  className="mt-3 flex w-full items-center justify-center gap-2 py-2 text-[10px] font-bold tracking-[.15em] text-black/55 hover:text-black"
+                >
+                  <Trash2 size={13} /> CLEAR CART
+                </button>
+              )}
+            </div>
+          </>
         )}
       </SheetContent>
     </Sheet>

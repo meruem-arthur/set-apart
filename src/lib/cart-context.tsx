@@ -13,6 +13,8 @@ export type CartLine = {
 
 type CartState = { lines: CartLine[] };
 type Ctx = {
+  /** False until the saved cart has been read from the browser (avoids SSR/hydration mismatch). */
+  ready: boolean;
   lines: CartLine[];
   itemCount: number;
   subtotal: number;
@@ -38,15 +40,24 @@ function load(): CartState {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = React.useState<CartState>(() => load());
+  // Start empty so the server render and the first client render match.
+  // The saved cart is loaded right after hydration.
+  const [state, setState] = React.useState<CartState>({ lines: [] });
+  const [ready, setReady] = React.useState(false);
 
   React.useEffect(() => {
+    setState(load());
+    setReady(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!ready) return; // never overwrite the saved cart with the empty initial state
     try {
       localStorage.setItem(KEY, JSON.stringify(state));
     } catch {
       // Cart still works for the current session if storage is unavailable.
     }
-  }, [state]);
+  }, [state, ready]);
 
   const addItem = React.useCallback<Ctx["addItem"]>((item, quantity = 1) => {
     setState((s) => {
@@ -85,7 +96,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const subtotal = state.lines.reduce((sum, x) => sum + x.price * x.quantity, 0);
 
   return (
-    <C.Provider value={{ lines: state.lines, itemCount, subtotal, addItem, updateQuantity, removeItem, clear }}>
+    <C.Provider value={{ ready, lines: state.lines, itemCount, subtotal, addItem, updateQuantity, removeItem, clear }}>
       {children}
     </C.Provider>
   );

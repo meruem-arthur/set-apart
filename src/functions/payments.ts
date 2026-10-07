@@ -31,28 +31,49 @@ export const initializePayment = createServerFn({ method: "POST" })
     const reference = `${order.orderNumber}-${Date.now().toString(36)}`;
     const amountInPesewas = Math.round(Number(order.total) * 100);
 
-    const response = await fetch(`${PAYSTACK_BASE_URL}/transaction/initialize`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${getSecretKey()}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: order.customerEmail || `${order.customerPhone.replace(/\D/g, "")}@setapart.local`,
-        amount: amountInPesewas,
-        currency: "GHS",
-        reference,
-        ...(data.callbackUrl ? { callback_url: data.callbackUrl } : {}),
-        metadata: {
-          order_id: order.id,
-          order_number: order.orderNumber,
-          customer_name: order.customerName,
-        },
-      }),
-    });
+    // createOrder reserves stock up front, so if we can't hand the customer to
+    // Paystack the reservation must be released or stock leaks on every failure.
+    const releaseReservation = async () => {
+      const items = await db.query.orderItems.findMany({ where: eq(orderItems.orderId, order.id) });
+      for (const item of items) {
+        if (!item.productVariantId) continue;
+        const variant = await db.query.productVariants.findFirst({ where: eq(productVariants.id, item.productVariantId) });
+        if (variant) {
+          await db.update(productVariants).set({ stock: variant.stock + item.quantity, updatedAt: new Date() }).where(eq(productVariants.id, variant.id));
+        }
+      }
+      await db.update(orders).set({ paymentStatus: "failed", orderStatus: "cancelled", updatedAt: new Date() }).where(eq(orders.id, order.id));
+    };
 
-    const json = await response.json();
+    let response: Response;
+    let json: any;
+    try {
+      response = await fetch(`${PAYSTACK_BASE_URL}/transaction/initialize`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${getSecretKey()}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: order.customerEmail || `${order.customerPhone.replace(/\D/g, "")}@setapart.local`,
+          amount: amountInPesewas,
+          currency: "GHS",
+          reference,
+          ...(data.callbackUrl ? { callback_url: data.callbackUrl } : {}),
+          metadata: {
+            order_id: order.id,
+            order_number: order.orderNumber,
+            customer_name: order.customerName,
+          },
+        }),
+      });
+      json = await response.json();
+    } catch (error) {
+      await releaseReservation();
+      throw error;
+    }
     if (!response.ok || !json.status) {
+      await releaseReservation();
       throw new Error(json.message ?? "Could not start payment with Paystack.");
     }
 
