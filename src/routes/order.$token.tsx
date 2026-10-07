@@ -112,7 +112,7 @@ function OrderTrackingPage() {
               <img
                 src={logoIcon}
                 alt="SET APART logo"
-                className="size-7 shrink-0 rounded-[8px] object-cover ring-1 ring-black/5"
+                className="size-7 shrink-0 rounded-[8px] object-cover ring-1 ring-white/10"
               />
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink/45">
                 SET APART
@@ -137,7 +137,7 @@ function OrderTrackingPage() {
                 order.paymentStatus === "paid"
                   ? "bg-sage/15 text-sage"
                   : order.paymentStatus === "failed"
-                    ? "bg-red-100 text-red-700"
+                    ? "bg-red-950/50 text-red-400"
                     : "bg-amber/15 text-amber"
               }`}
             >
@@ -150,7 +150,7 @@ function OrderTrackingPage() {
           </div>
 
           {isCancelled ? (
-            <div className="mt-8 rounded-2xl bg-red-50 p-5 text-center text-sm text-red-700">
+            <div className="mt-8 rounded-2xl bg-red-950/40 p-5 text-center text-sm text-red-400">
               This order was cancelled. Call 059 276 7499 if you have questions.
             </div>
           ) : (
@@ -162,7 +162,7 @@ function OrderTrackingPage() {
                   <li key={step.key} className="relative flex gap-3 pb-6 last:pb-0">
                     {i < STEPS.length - 1 && (
                       <span
-                        className={`absolute left-[11px] top-6 h-full w-0.5 ${done || active ? "bg-clay" : "bg-black/10"}`}
+                        className={`absolute left-[11px] top-6 h-full w-0.5 ${done || active ? "bg-clay" : "bg-white/15"}`}
                       />
                     )}
                     <span
@@ -171,7 +171,7 @@ function OrderTrackingPage() {
                           ? "bg-clay text-paper"
                           : active
                             ? "bg-clay/15 text-clay ring-2 ring-clay"
-                            : "bg-card text-ink/30 ring-1 ring-black/10"
+                            : "bg-card text-ink/30 ring-1 ring-white/10"
                       }`}
                     >
                       {done ? "✓" : active ? "●" : "○"}
@@ -187,7 +187,7 @@ function OrderTrackingPage() {
             </ol>
           )}
 
-          <div className="mt-8 space-y-2 rounded-2xl bg-card p-4 ring-1 ring-black/5">
+          <div className="mt-8 space-y-2 rounded-2xl bg-card p-4 ring-1 ring-white/10">
             {order.items.map((item, i) => (
               <div key={i} className="flex justify-between text-sm">
                 <span>
@@ -200,7 +200,7 @@ function OrderTrackingPage() {
                 <span>{formatGHS(item.subtotal)}</span>
               </div>
             ))}
-            <div className="my-2 border-t border-black/10" />
+            <div className="my-2 border-t border-white/12" />
             <div className="flex justify-between text-sm text-ink/60">
               <span>Subtotal</span>
               <span>{formatGHS(order.subtotal)}</span>

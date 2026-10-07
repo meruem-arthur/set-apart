@@ -4,7 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 @theme inline {
   --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground); --color-popover: var(--popover); --color-popover-foreground: var(--foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
-  --font-display: "Space Grotesk", sans-serif; --font-body: "Space Grotesk", sans-serif;
+  --font-display: "Space Grotesk", sans-serif; --font-body: "Space Grotesk", sans-serif; --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 :root { --background:#f5f4ef; --foreground:#111; --card:#fff; --primary:#111; --primary-foreground:#fff; --border:rgba(17,17,17,.1); --input:rgba(17,17,17,.12); --ring:#111; }
 @layer base { *{border-color:var(--border)} html{overflow-x:hidden;scroll-behavior:smooth} body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-body);overflow-x:hidden} h1,h2,h3,h4{font-family:var(--font-display)} button,a{transition:all .2s ease} }
+
+/* ───────── Storefront dark / techy theme (admin + super-admin keep the light theme) ───────── */
+html.store-dark{color-scheme:dark;--background:#050505;--foreground:#ededed;--card:#0c0c0f;--primary:#ffffff;--primary-foreground:#050505;--border:rgba(255,255,255,.12);--input:rgba(255,255,255,.16);--ring:#ffffff}
+html.store-dark body{
+  background-color:#050505;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
+    radial-gradient(1200px 600px at 50% -10%,rgba(255,255,255,.06),transparent 60%);
+  background-size:56px 56px,56px 56px,100% 100%;
+  background-attachment:fixed;
+}
+html.store-dark ::selection{background:#fff;color:#000}
+html.store-dark input,html.store-dark select,html.store-dark textarea{background-color:rgba(255,255,255,.04);color:#ededed;border-radius:0}
+html.store-dark input::placeholder,html.store-dark textarea::placeholder{color:rgba(255,255,255,.35)}
+html.store-dark input:focus,html.store-dark select:focus,html.store-dark textarea:focus{outline:none;border-color:rgba(255,255,255,.7);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 0 18px rgba(255,255,255,.12)}
+html.store-dark input[type=file]{background:transparent}
+/* small uppercase labels use the mono face for a terminal / HUD feel */
+html.store-dark [class*="text-[10px]"],html.store-dark [class*="text-[9px]"]{font-family:var(--font-mono);letter-spacing:.22em}
+html.store-dark h1,html.store-dark h2{letter-spacing:-.04em}
+/* HUD panels: hairline border + corner brackets */
+.hud{position:relative;border:1px solid rgba(255,255,255,.12)}
+.hud::before,.hud::after{content:"";position:absolute;width:16px;height:16px;pointer-events:none;border:0 solid rgba(255,255,255,.7)}
+.hud::before{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+.hud::after{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+.hud-off{border:1px solid rgba(255,255,255,.12)}
+/* subtle scanlines on the hero */
+.scan{background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 4px)}
+/* product tiles */
+.tile img{filter:saturate(1.05) contrast(1.03)}
+.tile:hover{box-shadow:0 0 0 1px rgba(255,255,255,.35),0 0 28px rgba(255,255,255,.08)}
+html.store-dark header.sticky{backdrop-filter:blur(14px)}

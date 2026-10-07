@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -98,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap",
       },
     ],
   }),
@@ -109,8 +110,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  // Storefront gets the dark theme; staff dashboards keep the light one.
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isStaffArea = pathname.startsWith("/admin") || pathname.startsWith("/super-admin");
   return (
-    <html lang="en">
+    <html lang="en" className={isStaffArea ? "" : "store-dark"}>
       <head>
         <HeadContent />
       </head>
@@ -132,6 +136,7 @@ function RootComponent() {
         <Outlet />
         <Toaster
           position="top-center"
+          theme="dark"
           richColors
           toastOptions={{ style: { fontFamily: "var(--font-body)" } }}
         />

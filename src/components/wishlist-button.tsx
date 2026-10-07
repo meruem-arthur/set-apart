@@ -54,9 +54,9 @@ export function WishlistButton({ productId, variant = "icon", className = "" }: 
         onClick={onClick}
         disabled={busy}
         aria-pressed={saved}
-        className={`flex w-full items-center justify-center gap-2 rounded-full border border-black/20 py-4 text-xs font-bold tracking-[.15em] disabled:opacity-50 ${className}`}
+        className={`flex w-full items-center justify-center gap-2 rounded-full border border-white/20 py-4 text-xs font-bold tracking-[.15em] disabled:opacity-50 ${className}`}
       >
-        <Heart size={15} className={saved ? "fill-black" : ""} />
+        <Heart size={15} className={saved ? "fill-white" : ""} />
         {saved ? "SAVED TO WISHLIST" : "ADD TO WISHLIST"}
       </button>
     );
@@ -69,9 +69,9 @@ export function WishlistButton({ productId, variant = "icon", className = "" }: 
       disabled={busy}
       aria-pressed={saved}
       aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
-      className={`grid size-9 place-items-center rounded-full bg-white/90 shadow disabled:opacity-50 ${className}`}
+      className={`grid size-9 place-items-center rounded-full bg-black/60 shadow disabled:opacity-50 ${className}`}
     >
-      <Heart size={16} className={saved ? "fill-black" : ""} />
+      <Heart size={16} className={saved ? "fill-white" : ""} />
     </button>
   );
 }

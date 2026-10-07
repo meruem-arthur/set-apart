@@ -19,8 +19,8 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent side="right" className="flex w-full flex-col bg-[#f5f4ef] p-0 text-[#111] sm:max-w-md">
-        <SheetHeader className="border-b border-black/10 px-5 py-4">
+      <SheetContent side="right" className="flex w-full flex-col bg-[#050505] p-0 text-[#ededed] sm:max-w-md">
+        <SheetHeader className="border-b border-white/12 px-5 py-4">
           <SheetTitle className="text-2xl font-black tracking-[-.05em]">
             CART ({cart.itemCount})
           </SheetTitle>
@@ -33,7 +33,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
               <Link
                 to="/shop"
                 onClick={() => setOpen(false)}
-                className="mt-5 inline-block rounded-full bg-black px-5 py-3 text-[10px] font-bold tracking-[.15em] text-white"
+                className="mt-5 inline-block rounded-full bg-white px-5 py-3 text-[10px] font-bold tracking-[.15em] text-black"
               >
                 BROWSE THE SHOP
               </Link>
@@ -43,22 +43,22 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
           <>
             <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
               {cart.lines.map((line) => (
-                <div key={`${line.productId}-${line.variantId}`} className="border border-black/10 bg-white p-3">
+                <div key={`${line.productId}-${line.variantId}`} className="border border-white/12 bg-[#0d0d10] p-3">
                   <div className="flex justify-between gap-3">
                     <div className="min-w-0">
                       <p className="truncate text-sm font-bold">{line.name}</p>
-                      <p className="mt-0.5 text-xs text-black/45">
+                      <p className="mt-0.5 text-xs text-white/55">
                         {[line.color, line.size].filter(Boolean).join(" / ")} · {money(line.price)} each
                       </p>
                     </div>
                     <p className="shrink-0 text-sm font-bold">{money(line.price * line.quantity)}</p>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-center border border-black/15">
+                    <div className="flex items-center border border-white/15">
                       <button
                         type="button"
                         onClick={() => cart.updateQuantity(line.productId, line.variantId, line.quantity - 1)}
-                        className="grid size-8 place-items-center text-sm font-bold hover:bg-black/5"
+                        className="grid size-8 place-items-center text-sm font-bold hover:bg-white/5"
                         aria-label={`Decrease ${line.name} quantity`}
                       >
                         −
@@ -67,7 +67,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                       <button
                         type="button"
                         onClick={() => cart.updateQuantity(line.productId, line.variantId, line.quantity + 1)}
-                        className="grid size-8 place-items-center text-sm font-bold hover:bg-black/5"
+                        className="grid size-8 place-items-center text-sm font-bold hover:bg-white/5"
                         aria-label={`Increase ${line.name} quantity`}
                       >
                         +
@@ -76,7 +76,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                     <button
                       type="button"
                       onClick={() => cart.removeItem(line.productId, line.variantId)}
-                      className="text-[10px] font-bold tracking-[.12em] text-black/50 hover:text-black"
+                      className="text-[10px] font-bold tracking-[.12em] text-white/60 hover:text-white"
                     >
                       REMOVE
                     </button>
@@ -85,16 +85,16 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
               ))}
             </div>
 
-            <div className="border-t border-black/10 bg-[#f5f4ef] px-5 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+            <div className="border-t border-white/12 bg-[#050505] px-5 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-black/55">Subtotal</span>
+                <span className="text-white/62">Subtotal</span>
                 <span className="text-lg font-black">{money(cart.subtotal)}</span>
               </div>
-              <p className="mt-1 text-xs text-black/40">Delivery fee is added at checkout.</p>
+              <p className="mt-1 text-xs text-white/50">Delivery fee is added at checkout.</p>
               <Link
                 to="/checkout"
                 onClick={() => setOpen(false)}
-                className="mt-4 block w-full rounded-full bg-black py-4 text-center text-xs font-bold tracking-[.15em] text-white"
+                className="mt-4 block w-full rounded-full bg-white py-4 text-center text-xs font-bold tracking-[.15em] text-black"
               >
                 CHECKOUT
               </Link>
@@ -108,7 +108,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                         cart.clear();
                         setConfirmClear(false);
                       }}
-                      className="font-bold text-red-700 underline"
+                      className="font-bold text-red-400 underline"
                     >
                       YES, CLEAR
                     </button>
@@ -121,7 +121,7 @@ export function CartSheet({ children }: { children: React.ReactNode }) {
                 <button
                   type="button"
                   onClick={() => setConfirmClear(true)}
-                  className="mt-3 flex w-full items-center justify-center gap-2 py-2 text-[10px] font-bold tracking-[.15em] text-black/55 hover:text-black"
+                  className="mt-3 flex w-full items-center justify-center gap-2 py-2 text-[10px] font-bold tracking-[.15em] text-white/62 hover:text-white"
                 >
                   <Trash2 size={13} /> CLEAR CART
                 </button>
