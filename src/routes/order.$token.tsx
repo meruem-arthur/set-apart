@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getContactInfo } from "@/functions/contact";
+import { getCurrentCustomer } from "@/functions/customers";
 import { DEFAULT_CONTACT, telHref } from "@/lib/contact";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderByToken } from "@/functions/orders";
@@ -43,6 +44,7 @@ function getSteps(orderType: string) {
 
 function OrderTrackingPage() {
   const { token } = Route.useParams();
+  const customerQuery = useQuery({ queryKey: ["current-customer"], queryFn: () => getCurrentCustomer() });
   const { data: contact = DEFAULT_CONTACT } = useQuery({ queryKey: ["contact-info"], queryFn: () => getContactInfo() });
   const { reference, trxref } = Route.useSearch();
   const queryClient = useQueryClient();
@@ -224,6 +226,16 @@ function OrderTrackingPage() {
           >
             Call SET APART
           </a>
+
+          {customerQuery.isSuccess && !customerQuery.data && (
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+              <p className="text-sm font-semibold">Track orders &amp; save favourites</p>
+              <p className="mt-1 text-xs text-ink/55">Create a free account with the email you used at checkout.</p>
+              <Link to="/account" className="btn-glass-light mt-3 inline-flex rounded-full px-4 py-2 text-xs font-medium text-ink">
+                Create an account
+              </Link>
+            </div>
+          )}
 
           <Link
             to="/"
