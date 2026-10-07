@@ -1,5 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { getContactInfo } from "@/functions/contact";
+import { DEFAULT_CONTACT, telHref } from "@/lib/contact";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderByToken } from "@/functions/orders";
 import { verifyPaymentFn } from "@/functions/payments";
@@ -41,6 +43,7 @@ function getSteps(orderType: string) {
 
 function OrderTrackingPage() {
   const { token } = Route.useParams();
+  const { data: contact = DEFAULT_CONTACT } = useQuery({ queryKey: ["contact-info"], queryFn: () => getContactInfo() });
   const { reference, trxref } = Route.useSearch();
   const queryClient = useQueryClient();
   const [verifying, setVerifying] = React.useState(Boolean(reference || trxref));
@@ -216,7 +219,7 @@ function OrderTrackingPage() {
           </div>
 
           <a
-            href="tel:0592767499"
+            href={telHref(contact.phone)}
             className="btn-glass mt-6 flex w-full items-center justify-center rounded-full bg-clay px-5 py-3 text-sm font-medium text-paper"
           >
             Call SET APART

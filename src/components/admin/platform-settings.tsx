@@ -1,10 +1,12 @@
 import { DeliveryZonesManager } from "@/components/admin/delivery-zones-manager";
+import { ContactInfoManager } from "@/components/admin/contact-info-manager";
 
-/**
- * Formerly a single flat "delivery fee" box. Delivery pricing is now
- * per-area (see delivery-zones-manager), so this just re-exports that
- * shared manager under the name the Settings route already imports.
- */
+/** Super Admin settings: storefront contact info + per-area delivery pricing. */
 export function PlatformSettings() {
-  return <DeliveryZonesManager />;
+  return (
+    <div>
+      <ContactInfoManager />
+      <DeliveryZonesManager />
+    </div>
+  );
 }
