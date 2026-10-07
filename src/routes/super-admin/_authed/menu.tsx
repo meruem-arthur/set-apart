@@ -1,0 +1,1 @@
+import {createFileRoute,redirect} from "@tanstack/react-router";export const Route=createFileRoute("/super-admin/_authed/menu")({beforeLoad:()=>{throw redirect({to:"/admin/products"})},component:()=>null});
