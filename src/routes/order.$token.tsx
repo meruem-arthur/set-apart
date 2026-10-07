@@ -5,7 +5,6 @@ import { getOrderByToken } from "@/functions/orders";
 import { verifyPaymentFn } from "@/functions/payments";
 import { outForDeliveryStepLabel } from "@/lib/order-status";
 import heroSpread from "@/assets/hero-spread.jpg";
-import logoIcon from "@/assets/logo-icon.png";
 
 export const Route = createFileRoute("/order/$token")({
   head: () => ({
@@ -110,7 +109,7 @@ function OrderTrackingPage() {
             </Link>
             <div className="flex items-center gap-2">
               <img
-                src={logoIcon}
+                src="/icon-192.png"
                 alt="SET APART logo"
                 className="size-7 shrink-0 rounded-[8px] object-cover ring-1 ring-white/10"
               />
