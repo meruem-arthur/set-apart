@@ -51,7 +51,7 @@ function AccountPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+      <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
         <h2 className="mb-3 text-sm font-semibold">Change Password</h2>
         <form onSubmit={handleSubmit} className="space-y-3">
           <PasswordInput
@@ -60,7 +60,7 @@ function AccountPage() {
             onChange={(e) => setCurrentPassword(e.target.value)}
             placeholder="Current password"
             autoComplete="current-password"
-            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
           />
           <PasswordInput
             required
@@ -68,7 +68,7 @@ function AccountPage() {
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder="New password"
             autoComplete="new-password"
-            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
           />
           <PasswordInput
             required
@@ -76,9 +76,9 @@ function AccountPage() {
             onChange={(e) => setConfirm(e.target.value)}
             placeholder="Confirm new password"
             autoComplete="new-password"
-            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+            className="rounded-xl bg-paper py-2.5 pl-4 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
           />
-          {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+          {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
           {success && (
             <p className="rounded-xl bg-sage/10 px-4 py-2 text-xs text-sage">Password updated.</p>
           )}

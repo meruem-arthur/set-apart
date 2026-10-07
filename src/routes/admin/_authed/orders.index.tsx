@@ -56,7 +56,7 @@ function OrdersHistoryPage() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-black/5"
+          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-white/10"
         >
           <option value="">All statuses</option>
           {STATUS_OPTIONS.map((s) => (
@@ -68,7 +68,7 @@ function OrdersHistoryPage() {
         <select
           value={orderType}
           onChange={(e) => setOrderType(e.target.value)}
-          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-black/5"
+          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-white/10"
         >
           <option value="">All types</option>
           <option value="pickup">Pickup</option>
@@ -77,7 +77,7 @@ function OrdersHistoryPage() {
         <select
           value={paymentStatus}
           onChange={(e) => setPaymentStatus(e.target.value)}
-          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-black/5"
+          className="shrink-0 rounded-full bg-card px-3 py-2 text-xs ring-1 ring-white/10"
         >
           <option value="">All payments</option>
           <option value="pending">Pending</option>
@@ -98,7 +98,7 @@ function OrdersHistoryPage() {
               key={o.id}
               to="/admin/orders/$id"
               params={{ id: String(o.id) }}
-              className="block rounded-2xl bg-card p-4 ring-1 ring-black/5"
+              className="block rounded-2xl bg-card p-4 ring-1 ring-white/10"
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold">{o.orderNumber}</p>

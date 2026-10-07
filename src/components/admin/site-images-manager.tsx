@@ -45,11 +45,11 @@ export function SiteImagesManager({ images }: { images: Record<string, string | 
         </p>
       </div>
       {!isCloudinaryConfigured() && (
-        <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-800">
+        <p className="rounded-md bg-amber/10 p-3 text-sm text-amber">
           Uploads need VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET to be set.
         </p>
       )}
-      {error && <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-md bg-red-500/10 p-3 text-sm text-red-300">{error}</p>}
       <div className="grid gap-5 md:grid-cols-2">
         {SITE_IMAGE_SLOTS.map((s) => {
           const url = images[s.slot];
@@ -85,7 +85,7 @@ export function SiteImagesManager({ images }: { images: Record<string, string | 
                     type="button"
                     disabled={busy !== null}
                     onClick={() => void onRemove(s.slot)}
-                    className="text-xs font-medium text-red-600 underline disabled:opacity-50"
+                    className="text-xs font-medium text-red-400 underline disabled:opacity-50"
                   >
                     Remove
                   </button>

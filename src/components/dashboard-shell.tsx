@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, LogOut, type LucideIcon } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import logoIcon from "@/assets/logo-icon.png";
 
 export type DashboardNavItem = {
   to: string;
@@ -43,9 +42,9 @@ export function DashboardShell({
   const brand = (
     <Link to={homeTo} className="flex items-center gap-2.5 px-2">
       <img
-        src={logoIcon}
+        src="/icon-192.png"
         alt="SET APART logo"
-        className="size-9 shrink-0 rounded-[10px] object-cover ring-1 ring-black/5"
+        className="size-9 shrink-0 rounded-[10px] object-cover ring-1 ring-white/10"
       />
       <div className="leading-tight">
         <p className="text-sm font-semibold">SET APART</p>
@@ -72,11 +71,11 @@ export function DashboardShell({
   );
 
   const footer = (
-    <div className="border-t border-black/5 px-2 pt-4">
+    <div className="border-t border-white/5 px-2 pt-4">
       <p className="truncate text-xs font-medium text-ink/70">{staffName}</p>
       <button
         onClick={onLogout}
-        className="btn-glass-light mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-clay"
+        className="btn-glass-light mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-white"
       >
         <LogOut className="size-3.5" />
         Log out
@@ -87,7 +86,7 @@ export function DashboardShell({
   return (
     <div className="min-h-screen bg-paper text-ink lg:flex">
       {/* DESKTOP SIDEBAR */}
-      <aside className="hidden lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-60 lg:shrink-0 lg:flex-col lg:border-r lg:border-black/5 lg:bg-card/40 lg:px-4 lg:py-6">
+      <aside className="hidden lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-60 lg:shrink-0 lg:flex-col lg:border-r lg:border-white/5 lg:bg-black/40 lg:backdrop-blur-xl lg:px-4 lg:py-6">
         {brand}
         {navList}
         {footer}
@@ -108,7 +107,7 @@ export function DashboardShell({
 
       <div className="min-w-0 lg:flex-1">
         {/* MOBILE / TABLET HEADER */}
-        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-black/5 bg-paper/95 px-4 py-3 backdrop-blur-sm lg:hidden">
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-white/5 bg-black/70 px-4 py-3 backdrop-blur-sm lg:hidden">
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -119,9 +118,9 @@ export function DashboardShell({
           </button>
           <Link to={homeTo} className="flex min-w-0 flex-1 items-center justify-center gap-2">
             <img
-              src={logoIcon}
+              src="/icon-192.png"
               alt="SET APART logo"
-              className="size-7 shrink-0 rounded-[8px] object-cover ring-1 ring-black/5"
+              className="size-7 shrink-0 rounded-[8px] object-cover ring-1 ring-white/10"
             />
             <span className="truncate text-sm font-semibold">{subtitle}</span>
           </Link>

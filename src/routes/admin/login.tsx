@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { loginStaff, getCurrentStaff } from "@/functions/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Spinner } from "@/components/ui/spinner";
-import logoIcon from "@/assets/logo-icon.png";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
@@ -43,9 +42,9 @@ function LoginPage() {
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
         <div className="text-center">
           <img
-            src={logoIcon}
+            src="/icon-192.png"
             alt="SET APART logo"
-            className="mx-auto size-14 rounded-[14px] object-cover ring-1 ring-black/5"
+            className="mx-auto size-16 rounded-2xl object-cover ring-1 ring-white/15 shadow-[0_0_32px_-6px_rgba(225,6,0,.55)]"
           />
           <h1 className="mt-3 text-xl font-semibold">Sign in</h1>
           <p className="mt-1 text-sm text-ink/50">SET APART</p>
@@ -58,7 +57,7 @@ function LoginPage() {
           onChange={(e) => setIdentifier(e.target.value)}
           placeholder="Email (Admin) or username (Staff)"
           autoComplete="username"
-          className="w-full rounded-2xl bg-card px-4 py-3 text-sm ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
+          className="glass-field w-full rounded-2xl px-4 py-3 text-sm focus:outline-none"
         />
         <PasswordInput
           required
@@ -66,15 +65,15 @@ function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           autoComplete="current-password"
-          className="rounded-2xl bg-card py-3 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
+          className="glass-field rounded-2xl py-3 pl-4 text-sm focus:outline-none"
         />
 
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{error}</p>}
 
         <button
           type="submit"
           disabled={submitting}
-          className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay px-5 py-3 text-sm font-medium text-paper disabled:opacity-60"
+          className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-wide"
         >
           {submitting && <Spinner />}
           {submitting ? "Signing in…" : "Sign in"}

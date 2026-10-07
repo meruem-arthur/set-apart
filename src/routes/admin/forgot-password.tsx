@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import logoIcon from "@/assets/logo-icon.png";
 import { toast } from "sonner";
 import { requestPasswordReset } from "@/functions/auth";
 import { Spinner } from "@/components/ui/spinner";
@@ -41,16 +40,16 @@ function ForgotPasswordPage() {
       <div className="w-full max-w-sm space-y-5">
         <div className="text-center">
           <img
-            src={logoIcon}
+            src="/icon-192.png"
             alt="SET APART logo"
-            className="mx-auto size-14 rounded-[14px] object-cover ring-1 ring-black/5"
+            className="mx-auto size-16 rounded-2xl object-cover ring-1 ring-white/15 shadow-[0_0_32px_-6px_rgba(225,6,0,.55)]"
           />
           <h1 className="mt-3 text-xl font-semibold">Reset your password</h1>
           <p className="mt-1 text-sm text-ink/50">For Admin &amp; Super Admin accounts</p>
         </div>
 
         {submitted ? (
-          <p className="rounded-2xl bg-card p-4 text-center text-sm text-ink/70 ring-1 ring-black/5">
+          <p className="glass-field rounded-2xl p-4 text-center text-sm text-ink/70">
             If that email is registered to an Admin account, we've sent a password reset link. It
             expires in 30 minutes.
           </p>
@@ -63,15 +62,15 @@ function ForgotPasswordPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Registered email address"
               autoComplete="email"
-              className="w-full rounded-2xl bg-card px-4 py-3 text-sm ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
+              className="glass-field w-full rounded-2xl px-4 py-3 text-sm focus:outline-none"
             />
             {error && (
-              <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>
+              <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{error}</p>
             )}
             <button
               type="submit"
               disabled={submitting}
-              className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay px-5 py-3 text-sm font-medium text-paper disabled:opacity-60"
+              className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-wide"
             >
               {submitting && <Spinner />}
               {submitting ? "Sending…" : "Send reset link"}
@@ -79,7 +78,7 @@ function ForgotPasswordPage() {
           </form>
         )}
 
-        <div className="rounded-2xl bg-amber/10 p-4 text-center text-xs text-ink/60 ring-1 ring-black/5">
+        <div className="rounded-2xl bg-amber/10 p-4 text-center text-xs text-ink/60 ring-1 ring-white/10">
           <strong className="font-semibold text-ink/75">Staff account?</strong> For security
           reasons, staff password resets are handled by the administrator. Please contact your
           administrator for assistance.

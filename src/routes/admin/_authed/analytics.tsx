@@ -88,14 +88,14 @@ function AnalyticsPage() {
             type="date"
             value={from}
             onChange={(e) => setFrom(e.target.value)}
-            className="rounded-full bg-card px-3 py-2 text-xs ring-1 ring-black/5"
+            className="rounded-full bg-card px-3 py-2 text-xs ring-1 ring-white/10"
           />
           <span className="text-xs text-ink/40">to</span>
           <input
             type="date"
             value={to}
             onChange={(e) => setTo(e.target.value)}
-            className="rounded-full bg-card px-3 py-2 text-xs ring-1 ring-black/5"
+            className="rounded-full bg-card px-3 py-2 text-xs ring-1 ring-white/10"
           />
         </div>
       )}
@@ -118,7 +118,7 @@ function AnalyticsPage() {
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink/50">
                 Daily Sales
               </h2>
@@ -139,7 +139,7 @@ function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink/50">
                 Daily Orders
               </h2>
@@ -168,7 +168,7 @@ function AnalyticsPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/50">
                 Order Status Breakdown
               </h2>
@@ -182,7 +182,7 @@ function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/50">
                 Pickup vs Delivery
               </h2>
@@ -196,7 +196,7 @@ function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5 sm:col-span-2 lg:col-span-1">
+            <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10 sm:col-span-2 lg:col-span-1">
               <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/50">
                 Best-Selling Items
               </h2>
@@ -221,7 +221,7 @@ function AnalyticsPage() {
         </>
       )}
 
-      <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+      <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink/50">
           Monthly Sales (last 6 months)
         </h2>
@@ -267,12 +267,12 @@ function StatCard({
   change?: number | null;
 }) {
   return (
-    <div className="rounded-2xl bg-card p-3 text-center ring-1 ring-black/5">
+    <div className="rounded-2xl bg-card p-3 text-center ring-1 ring-white/10">
       <p className="text-lg font-semibold">{value}</p>
       <p className="mt-0.5 text-[10px] leading-tight text-ink/50">{label}</p>
       {change !== undefined && change !== null && (
         <p
-          className={`mt-0.5 text-[10px] font-medium ${change >= 0 ? "text-sage" : "text-red-600"}`}
+          className={`mt-0.5 text-[10px] font-medium ${change >= 0 ? "text-sage" : "text-red-400"}`}
         >
           {change >= 0 ? "▲" : "▼"} {Math.abs(change).toFixed(1)}% vs prior period
         </p>

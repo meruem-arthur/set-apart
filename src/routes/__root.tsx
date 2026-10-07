@@ -110,11 +110,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  // Storefront gets the dark theme; staff dashboards keep the light one.
+  // Storefront and staff dashboards share the black / red theme.
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isStaffArea = pathname.startsWith("/admin") || pathname.startsWith("/super-admin");
   return (
-    <html lang="en" className={isStaffArea ? "" : "store-dark"}>
+    <html lang="en" className={isStaffArea ? "staff-dark" : "store-dark"}>
       <head>
         <HeadContent />
       </head>

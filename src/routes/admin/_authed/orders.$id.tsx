@@ -95,7 +95,7 @@ function OrderDetailPage() {
       </div>
 
       <div className="lg:grid lg:grid-cols-3 lg:items-start lg:gap-5">
-        <div className="rounded-2xl bg-card p-4 ring-1 ring-black/5 lg:col-span-2">
+        <div className="rounded-2xl bg-card p-4 ring-1 ring-white/10 lg:col-span-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-ink/50">Customer</h2>
           <p className="mt-2 text-sm font-medium">{order.customerName}</p>
           <a href={`tel:${order.customerPhone}`} className="text-sm text-clay">
@@ -126,7 +126,7 @@ function OrderDetailPage() {
           )}
         </div>
 
-        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-black/5 lg:col-span-2 lg:mt-5">
+        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-white/10 lg:col-span-2 lg:mt-5">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-ink/50">Items</h2>
           <div className="mt-2 space-y-1.5">
             {order.items.map((item) => (
@@ -147,7 +147,7 @@ function OrderDetailPage() {
               </div>
             ))}
           </div>
-          <div className="my-2 border-t border-black/10" />
+          <div className="my-2 border-t border-white/10" />
           <div className="flex justify-between text-sm text-ink/60">
             <span>Subtotal</span>
             <span>{formatGHS(Number(order.subtotal))}</span>
@@ -167,13 +167,13 @@ function OrderDetailPage() {
           </div>
         </div>
 
-        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-black/5 lg:sticky lg:top-24 lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:mt-0">
+        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-white/10 lg:sticky lg:top-24 lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:mt-0">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-ink/50">Status</h2>
           <p className="mt-2 text-sm font-medium capitalize">
             {orderStatusPhrase(order.orderStatus, order.orderType)}
           </p>
 
-          {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+          {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
 
           {!isTerminal && (
             <div className="mt-3 flex flex-wrap gap-2">
@@ -190,7 +190,7 @@ function OrderDetailPage() {
               <button
                 onClick={() => moveTo("cancelled")}
                 disabled={updating}
-                className="btn-glass-light inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium text-red-700 disabled:opacity-60"
+                className="btn-glass-light inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium text-red-300 disabled:opacity-60"
               >
                 {updating && <Spinner className="size-3.5" />}
                 Cancel order
@@ -199,7 +199,7 @@ function OrderDetailPage() {
           )}
         </div>
 
-        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-black/5 lg:col-span-2">
+        <div className="mt-5 rounded-2xl bg-card p-4 ring-1 ring-white/10 lg:col-span-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-ink/50">
             Status history
           </h2>

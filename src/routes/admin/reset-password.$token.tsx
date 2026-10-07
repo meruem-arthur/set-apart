@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { resetPasswordWithToken } from "@/functions/auth";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Spinner } from "@/components/ui/spinner";
-import logoIcon from "@/assets/logo-icon.png";
 
 export const Route = createFileRoute("/admin/reset-password/$token")({
   head: () => ({
@@ -50,15 +49,15 @@ function ResetPasswordPage() {
       <div className="w-full max-w-sm space-y-5">
         <div className="text-center">
           <img
-            src={logoIcon}
+            src="/icon-192.png"
             alt="SET APART logo"
-            className="mx-auto size-14 rounded-[14px] object-cover ring-1 ring-black/5"
+            className="mx-auto size-16 rounded-2xl object-cover ring-1 ring-white/15 shadow-[0_0_32px_-6px_rgba(225,6,0,.55)]"
           />
           <h1 className="mt-3 text-xl font-semibold">Set a new password</h1>
         </div>
 
         {done ? (
-          <p className="rounded-2xl bg-sage/10 p-4 text-center text-sm text-sage ring-1 ring-black/5">
+          <p className="rounded-2xl bg-sage/10 p-4 text-center text-sm text-sage ring-1 ring-white/10">
             Password updated. Redirecting you to sign in…
           </p>
         ) : (
@@ -69,7 +68,7 @@ function ResetPasswordPage() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="New password"
               autoComplete="new-password"
-              className="rounded-2xl bg-card py-3 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
+              className="glass-field rounded-2xl py-3 pl-4 text-sm focus:outline-none"
             />
             <PasswordInput
               required
@@ -77,15 +76,15 @@ function ResetPasswordPage() {
               onChange={(e) => setConfirm(e.target.value)}
               placeholder="Confirm new password"
               autoComplete="new-password"
-              className="rounded-2xl bg-card py-3 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35 focus:outline-none focus:ring-2 focus:ring-clay/40"
+              className="glass-field rounded-2xl py-3 pl-4 text-sm focus:outline-none"
             />
             {error && (
-              <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>
+              <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{error}</p>
             )}
             <button
               type="submit"
               disabled={submitting}
-              className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full bg-clay px-5 py-3 text-sm font-medium text-paper disabled:opacity-60"
+              className="btn-glass inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-wide"
             >
               {submitting && <Spinner />}
               {submitting ? "Saving…" : "Set new password"}

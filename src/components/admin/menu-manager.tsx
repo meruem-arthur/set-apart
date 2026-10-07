@@ -191,7 +191,7 @@ export function MenuManager() {
       </div>
 
       {listError && (
-        <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{listError}</p>
+        <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{listError}</p>
       )}
 
       {cats.length === 0 ? (
@@ -224,7 +224,7 @@ export function MenuManager() {
                 <button
                   onClick={() => handleDeleteCategory(cat)}
                   aria-label={`Delete ${cat.title}`}
-                  className="btn-glass-light inline-flex items-center rounded-full p-1.5 text-red-700"
+                  className="btn-glass-light inline-flex items-center rounded-full p-1.5 text-red-300"
                 >
                   <Trash2 className="size-3.5" />
                 </button>
@@ -233,23 +233,23 @@ export function MenuManager() {
 
             <div className="mt-2 space-y-2">
               {cat.items.length === 0 && (
-                <p className="rounded-2xl bg-card p-3 text-xs text-ink/40 ring-1 ring-black/5">
+                <p className="rounded-2xl bg-card p-3 text-xs text-ink/40 ring-1 ring-white/10">
                   No items in this category yet.
                 </p>
               )}
               {cat.items.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-black/5"
+                  className="flex items-center gap-3 rounded-2xl bg-card p-3 ring-1 ring-white/10"
                 >
                   {item.imageUrl ? (
                     <img
                       src={item.imageUrl}
                       alt={item.name}
-                      className="size-12 shrink-0 rounded-lg object-cover ring-1 ring-black/10"
+                      className="size-12 shrink-0 rounded-lg object-cover ring-1 ring-white/20"
                     />
                   ) : (
-                    <div className="grid size-12 shrink-0 place-items-center rounded-lg bg-paper text-[9px] text-ink/35 ring-1 ring-black/10">
+                    <div className="grid size-12 shrink-0 place-items-center rounded-lg bg-paper text-[9px] text-ink/35 ring-1 ring-white/20">
                       No image
                     </div>
                   )}
@@ -285,12 +285,12 @@ export function MenuManager() {
                             );
                           }
                         }}
-                        className="mt-1 w-24 rounded-lg bg-paper px-2 py-1 text-xs ring-1 ring-black/10"
+                        className="mt-1 w-24 rounded-lg bg-paper px-2 py-1 text-xs ring-1 ring-white/20"
                       />
                     ) : (
                       <button
                         onClick={() => setItemDialog({ mode: "edit", categoryId: cat.id, item })}
-                        className="mt-1 inline-flex items-center gap-1 rounded-lg bg-paper px-2 py-1 text-[11px] font-medium text-clay ring-1 ring-black/10"
+                        className="mt-1 inline-flex items-center gap-1 rounded-lg bg-paper px-2 py-1 text-[11px] font-medium text-clay ring-1 ring-white/20"
                       >
                         {item.variants.length} price options — edit to change
                       </button>
@@ -306,11 +306,11 @@ export function MenuManager() {
                           saveImageUrl(item, cat.id, val);
                         }
                       }}
-                      className="mt-1 w-full rounded-lg bg-paper px-2 py-1 text-xs ring-1 ring-black/10"
+                      className="mt-1 w-full rounded-lg bg-paper px-2 py-1 text-xs ring-1 ring-white/20"
                     />
                     <div className="mt-1 flex items-center gap-2">
                       <label
-                        className={`inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg bg-paper px-2 py-1 text-[10px] font-medium text-ink/60 ring-1 ring-black/10 ${
+                        className={`inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg bg-paper px-2 py-1 text-[10px] font-medium text-ink/60 ring-1 ring-white/20 ${
                           uploadingId === item.id ? "opacity-50" : ""
                         }`}
                       >
@@ -333,7 +333,7 @@ export function MenuManager() {
                       )}
                     </div>
                     {uploadErrors[item.id] && (
-                      <p className="mt-1 text-[10px] text-red-600">{uploadErrors[item.id]}</p>
+                      <p className="mt-1 text-[10px] text-red-400">{uploadErrors[item.id]}</p>
                     )}
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-2">
@@ -348,7 +348,7 @@ export function MenuManager() {
                     <button
                       onClick={() => handleDeleteItem(item)}
                       aria-label={`Delete ${item.name}`}
-                      className="inline-flex items-center gap-1 text-[11px] font-medium text-red-700"
+                      className="inline-flex items-center gap-1 text-[11px] font-medium text-red-300"
                     >
                       <Trash2 className="size-3" />
                       Delete
@@ -459,7 +459,7 @@ function CategoryDialog({
             if (!slugTouched) setSlug(slugify(e.target.value));
           }}
           placeholder="Name (e.g. Banku & Okro)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <input
           value={slug}
@@ -468,21 +468,21 @@ function CategoryDialog({
             setSlug(e.target.value);
           }}
           placeholder="URL slug (e.g. banku-okro)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <textarea
           value={blurb ?? ""}
           onChange={(e) => setBlurb(e.target.value)}
           placeholder="Short description (optional)"
           rows={2}
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <div>
           <label className="mb-1 block text-[11px] font-medium text-ink/50">Display layout</label>
           <select
             value={layout}
             onChange={(e) => setLayout(e.target.value)}
-            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5"
+            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10"
           >
             {LAYOUT_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -491,7 +491,7 @@ function CategoryDialog({
             ))}
           </select>
         </div>
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
         <div className="flex gap-2 pt-1">
           <button
             type="button"
@@ -621,7 +621,7 @@ function ItemDialog({
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(Number(e.target.value))}
-            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5"
+            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10"
           >
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
@@ -636,14 +636,14 @@ function ItemDialog({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Dish name (e.g. Jollof Special)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <textarea
           value={description ?? ""}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description (optional)"
           rows={2}
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
 
         <label className="flex items-center gap-2 text-xs text-ink/70">
@@ -656,14 +656,14 @@ function ItemDialog({
         </label>
 
         {hasVariants ? (
-          <div className="space-y-2 rounded-2xl bg-card p-3 ring-1 ring-black/5">
+          <div className="space-y-2 rounded-2xl bg-card p-3 ring-1 ring-white/10">
             {variantRows.map((row, i) => (
               <div key={row.key} className="flex items-center gap-1.5">
                 <input
                   value={row.label}
                   onChange={(e) => updateVariantRow(row.key, { label: e.target.value })}
                   placeholder={`Label ${i + 1} (optional, e.g. "Half")`}
-                  className="min-w-0 flex-1 rounded-xl bg-paper px-3 py-2 text-xs ring-1 ring-black/10 placeholder:text-ink/35"
+                  className="min-w-0 flex-1 rounded-xl bg-paper px-3 py-2 text-xs ring-1 ring-white/20 placeholder:text-ink/35"
                 />
                 <input
                   required
@@ -673,14 +673,14 @@ function ItemDialog({
                   value={row.price}
                   onChange={(e) => updateVariantRow(row.key, { price: e.target.value })}
                   placeholder="Price"
-                  className="w-20 shrink-0 rounded-xl bg-paper px-3 py-2 text-xs ring-1 ring-black/10 placeholder:text-ink/35"
+                  className="w-20 shrink-0 rounded-xl bg-paper px-3 py-2 text-xs ring-1 ring-white/20 placeholder:text-ink/35"
                 />
                 <button
                   type="button"
                   onClick={() => setVariantRows((rows) => rows.filter((r) => r.key !== row.key))}
                   disabled={variantRows.length <= 2}
                   aria-label="Remove price option"
-                  className="shrink-0 text-ink/35 hover:text-red-700 disabled:opacity-30"
+                  className="shrink-0 text-ink/35 hover:text-red-300 disabled:opacity-30"
                 >
                   <X className="size-3.5" />
                 </button>
@@ -708,7 +708,7 @@ function ItemDialog({
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder="Price (GHS)"
-            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+            className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
           />
         )}
 
@@ -717,7 +717,7 @@ function ItemDialog({
           value={imageUrl ?? ""}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="Image URL (optional, https://…)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <label className="flex items-center gap-2 text-sm">
           <input
@@ -727,7 +727,7 @@ function ItemDialog({
           />
           Available
         </label>
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
         <div className="flex gap-2 pt-1">
           <button
             type="button"

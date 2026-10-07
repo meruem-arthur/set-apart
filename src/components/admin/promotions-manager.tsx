@@ -66,7 +66,7 @@ export function PromotionsManager() {
         </button>
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{error}</p>}
 
       {promoQuery.isLoading ? (
         <p className="text-sm text-ink/40">Loading…</p>
@@ -75,7 +75,7 @@ export function PromotionsManager() {
       ) : (
         <div className="grid gap-2 lg:grid-cols-2 xl:grid-cols-3">
           {promoQuery.data!.map((p) => (
-            <div key={p.id} className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div key={p.id} className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold">{p.title}</p>
                 <span
@@ -104,7 +104,7 @@ export function PromotionsManager() {
                 <button
                   onClick={() => handleDelete(p.id)}
                   disabled={pendingId === p.id}
-                  className="btn-glass-light inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-red-700 disabled:opacity-60"
+                  className="btn-glass-light inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-red-300 disabled:opacity-60"
                 >
                   {pendingId === p.id && <Spinner className="size-3.5" />}
                   Delete
@@ -179,36 +179,36 @@ function AddPromotionDialog({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title (e.g. Friday Game Day)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <input
           value={badgeText}
           onChange={(e) => setBadgeText(e.target.value)}
           placeholder="Badge text (e.g. 15% off wings)"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Description (optional)"
           rows={2}
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <div className="flex gap-2">
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-1/2 rounded-2xl bg-card px-3 py-2.5 text-xs ring-1 ring-black/5"
+            className="w-1/2 rounded-2xl bg-card px-3 py-2.5 text-xs ring-1 ring-white/10"
           />
           <input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="w-1/2 rounded-2xl bg-card px-3 py-2.5 text-xs ring-1 ring-black/5"
+            className="w-1/2 rounded-2xl bg-card px-3 py-2.5 text-xs ring-1 ring-white/10"
           />
         </div>
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
         <div className="flex gap-2 pt-1">
           <button
             type="button"

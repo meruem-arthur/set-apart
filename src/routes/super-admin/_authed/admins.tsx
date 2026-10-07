@@ -61,7 +61,7 @@ function AdminAccountsPage() {
         </button>
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-red-500/10 px-4 py-2.5 text-sm text-red-300">{error}</p>}
 
       {adminsQuery.isLoading ? (
         <p className="text-sm text-ink/40">Loading…</p>
@@ -70,7 +70,7 @@ function AdminAccountsPage() {
       ) : (
         <div className="grid gap-2 lg:grid-cols-2 xl:grid-cols-3">
           {adminsQuery.data!.map((a) => (
-            <div key={a.id} className="rounded-2xl bg-card p-4 ring-1 ring-black/5">
+            <div key={a.id} className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold">{a.name}</p>
@@ -160,7 +160,7 @@ function AddAdminDialog({ onClose, onCreated }: { onClose: () => void; onCreated
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full name"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <input
           required
@@ -168,16 +168,16 @@ function AddAdminDialog({ onClose, onCreated }: { onClose: () => void; onCreated
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email address"
-          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="w-full rounded-2xl bg-card px-4 py-2.5 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
         <PasswordInput
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Temporary password"
-          className="rounded-2xl bg-card py-2.5 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="rounded-2xl bg-card py-2.5 pl-4 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
         <div className="flex gap-2 pt-1">
           <button
             type="button"
@@ -240,9 +240,9 @@ function ResetAdminPasswordDialog({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="New password"
-          className="rounded-2xl bg-card py-2.5 pl-4 text-sm ring-1 ring-black/5 placeholder:text-ink/35"
+          className="rounded-2xl bg-card py-2.5 pl-4 text-sm ring-1 ring-white/10 placeholder:text-ink/35"
         />
-        {error && <p className="rounded-xl bg-red-50 px-4 py-2 text-xs text-red-700">{error}</p>}
+        {error && <p className="rounded-xl bg-red-500/10 px-4 py-2 text-xs text-red-300">{error}</p>}
         <div className="flex gap-2 pt-1">
           <button
             type="button"
