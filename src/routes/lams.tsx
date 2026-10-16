@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, MessageCircle, Phone } from "lucide-react";
+import { getLamsContact } from "@/functions/lams";
 import { LAMS, lamsSmsHref, lamsSnapHref, lamsTelHref } from "@/data/lams";
 
 export const Route = createFileRoute("/lams")({
+  loader: async () => ({ contact: await getLamsContact() }),
   head: () => ({
     meta: [
       { title: "SET APART × LAMS — Anime Merchandise Pre-Orders" },
@@ -15,6 +17,7 @@ export const Route = createFileRoute("/lams")({
 const btn = "inline-flex items-center gap-2 rounded-full px-5 py-3 text-[10px] font-bold tracking-[.15em]";
 
 function LamsPage() {
+  const { contact } = Route.useLoaderData();
   return (
     <div className="min-h-screen bg-[#050505] text-[#ededed]">
       <header className="border-b border-white/10 bg-[#050505]/85">
@@ -52,17 +55,17 @@ function LamsPage() {
           <div className="mt-10">
             <p className="text-[10px] font-bold tracking-[.3em] text-white/50">GET IN TOUCH</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <a href={LAMS.whatsappCommunity} target="_blank" rel="noreferrer" className={`${btn} btn-glass`}>
+              <a href={contact.whatsappCommunity} target="_blank" rel="noreferrer" className={`${btn} btn-glass`}>
                 <MessageCircle size={15} /> JOIN THE LAMS WHATSAPP
               </a>
-              <a href={lamsTelHref()} className={`${btn} btn-glass-light`}>
-                <Phone size={15} /> CALL {LAMS.phone}
+              <a href={lamsTelHref(contact)} className={`${btn} btn-glass-light`}>
+                <Phone size={15} /> CALL {contact.phone}
               </a>
-              <a href={lamsSmsHref()} className={`${btn} btn-glass-light`}>
-                TEXT {LAMS.phone}
+              <a href={lamsSmsHref(contact)} className={`${btn} btn-glass-light`}>
+                TEXT {contact.phone}
               </a>
-              <a href={lamsSnapHref()} target="_blank" rel="noreferrer" className={`${btn} btn-glass-light`}>
-                SNAPCHAT: {LAMS.snapchat.toUpperCase()} <ArrowUpRight size={14} />
+              <a href={lamsSnapHref(contact)} target="_blank" rel="noreferrer" className={`${btn} btn-glass-light`}>
+                SNAPCHAT: {contact.snapchat.toUpperCase()} <ArrowUpRight size={14} />
               </a>
             </div>
           </div>
